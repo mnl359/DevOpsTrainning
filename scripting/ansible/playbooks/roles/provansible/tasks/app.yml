@@ -1,0 +1,29 @@
+---
+- name: Download repo
+  get_url:
+    url: https://github.com/mnl359/movie-analyst-api/archive/master.zip
+    dest: /home/vagrant/master.zip
+    owner: vagrant
+    group: vagrant
+
+- name: Unzip API code
+  unarchive:
+    src: /home/vagrant/master.zip
+    dest: /home/vagrant/
+    copy: no
+
+- name: Install node modules
+  npm:
+    path: /home/vagrant/movie-analyst-api-master/
+
+- name: Service file application
+  copy: 
+    src: /vagrant/movie-analyst.service
+    dest: /lib/systemd/system/
+    remote_src: True
+
+- name: Make sure movie-analyst service is running
+  systemd:
+    state: started
+    name: movie-analyst
+    daemon_reload: yes

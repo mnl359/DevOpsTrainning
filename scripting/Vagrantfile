@@ -1,0 +1,24 @@
+Vagrant.configure("2") do |config|
+    config.vm.provider "virtualbox" do |vb|
+      vb.memory = "2048"
+    end
+    config.vm.define "script" do |script|
+      script.vm.box = "ubuntu/groovy64"
+      script.vm.hostname = "script"
+      script.vm.network "private_network", ip: "192.168.56.21"
+      script.vm.provision "shell", path: "./script/script.sh"
+    end
+
+    config.vm.define "provansible" do |provansible|
+        provansible.vm.box = "ubuntu/groovy64"
+        provansible.vm.hostname = "provansible"
+        provansible.vm.network "private_network", ip: "192.168.56.20"
+        provansible.vm.provision "ansible" do |ansible|
+          ansible.playbook = "./ansible/playbooks/rampup.yml"
+          ansible.become = true
+          ansible.extra_vars = {
+            ansible_python_interpreter: "/usr/bin/python3.8",
+          }
+        end
+    end
+end

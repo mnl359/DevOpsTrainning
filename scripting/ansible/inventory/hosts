@@ -1,0 +1,2 @@
+[provansible]
+provansible	ansible_connection=local

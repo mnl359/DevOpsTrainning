@@ -1,0 +1,4 @@
+---
+## Install required packages
+- include_tasks: packages.yml
+- include_tasks: app.yml

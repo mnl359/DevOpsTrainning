@@ -1,0 +1,12 @@
+---
+- name: Upgrade all apt packages
+  shell: apt update
+  become: true
+
+- name: Install npm and dependencies
+  apt:
+    pkg:
+      - nodejs
+      - npm
+      - unzip
+    state: present

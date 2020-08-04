@@ -1,0 +1,6 @@
+[Service]
+Environment=NODE_PORT=3000
+Type=simple
+User=vagrant
+ExecStart=/usr/bin/node /home/vagrant/movie-analyst-api-master/server.js
+Restart=on-failure
